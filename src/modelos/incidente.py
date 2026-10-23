@@ -19,4 +19,8 @@ class Incidente:
 
     # Método para cerrar el incidente.
     def cerrar(self):
-        self.estado = "Cerrado"               # Actualiza el estado del incidente.
+        if self.estado == "Cerrado":
+            print(f"El incidente {self.id} ya está cerrado.")
+            return
+
+        self.estado = "Cerrado"
