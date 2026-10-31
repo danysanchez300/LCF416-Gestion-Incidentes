@@ -1,10 +1,8 @@
-
 # Importar la clase Incidente para crear los objetos de prueba.
 from src.modelos.incidente import Incidente
 
 # Importar el gestor que administra la colección de incidentes.
 from src.modelos.gestor_incidentes import GestorIncidentes
-
 
 # Crear el gestor donde se almacenarán los incidentes.
 gestor = GestorIncidentes()
@@ -18,7 +16,6 @@ incidentes = [
     Incidente(305, "Filtración de información", "Critica"),    # Segundo incidente crítico.
     Incidente(306, "Cuenta comprometida", "Alta")               # Segundo incidente de gravedad alta.
 ]
-
 # Recorrer la lista para agregar cada incidente al gestor.
 for incidente in incidentes:
     gestor.agregar(incidente)  # Guardar el incidente en la colección.
