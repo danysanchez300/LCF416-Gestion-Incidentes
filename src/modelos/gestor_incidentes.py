@@ -1,55 +1,62 @@
 # Importa la clase Incidente para validar los objetos recibidos.
 from .incidente import Incidente
 
-# Clase GestorIncidentes: administra incidentes que ya existen.
+# Clase que administra una colección de incidentes.
 class GestorIncidentes:
 
-    # Inicializa la lista interna de incidentes.
+    # Constructor que inicializa la lista de incidentes.
     def __init__(self):
-        self._incidentes = []
+        self._incidentes = []  # Guarda las referencias a los incidentes.
 
-    # Agrega un incidente existente a la colección.
+    # Método para agregar un incidente al catálogo.
     def agregar(self, incidente):
-        # Verificar que el objeto sea un Incidente.
+
+        # Comprueba que el objeto recibido sea un Incidente.
         if not isinstance(incidente, Incidente):
             raise TypeError("Se requiere un objeto Incidente.")
 
-        # Evitar que existan IDs duplicados.
+        # Revisa que no exista otro incidente con el mismo ID.
         for existente in self._incidentes:
             if existente.id == incidente.id:
                 raise ValueError(f"ID duplicado: {incidente.id}")
 
-        # Guardar la referencia al incidente.
-        self._incidentes.append(incidente)
+        self._incidentes.append(incidente)  # Agrega el incidente.
 
-    # Devuelve una copia de la lista de incidentes.
+    # Método que devuelve una copia de la lista de incidentes.
     def listar(self):
         return list(self._incidentes)
 
-    # Quita un incidente por su ID y devuelve el objeto.
+    # Método para quitar un incidente mediante su ID.
     def quitar(self, id):
         for incidente in self._incidentes:
             if incidente.id == id:
-                self._incidentes.remove(incidente)
-                return incidente        
+                self._incidentes.remove(incidente)  # Lo quita de la lista.
+                return incidente  # Devuelve el objeto eliminado.
 
-        # Si el ID no existe, devuelve None.
-        return None
+        return None  # Indica que el ID no fue encontrado.
 
-    # Cuenta cuántos incidentes hay de cada nivel de gravedad.
+    # Método que cuenta los incidentes por gravedad.
     def contar_por_gravedad(self):
-        # Crear un contador para cada una de las cuatro gravedades.
+
+        # Crea un contador para cada nivel de gravedad.
         conteo = {
-            "Critica": 0,  # Inicializa el contador de gravedad crítica.
-            "Alta": 0,     # Inicializa el contador de gravedad alta.
-            "Media": 0,    # Inicializa el contador de gravedad media.
-            "Baja": 0      # Inicializa el contador de gravedad baja.
+            "Critica": 0,
+            "Alta": 0,
+            "Media": 0,
+            "Baja": 0
         }
 
-        # Recorrer todos los incidentes guardados en la colección.
+        # Recorre los incidentes y cuenta cada gravedad.
         for incidente in self._incidentes:
-            # Aumentar en uno el contador de la gravedad correspondiente.
             conteo[incidente.gravedad] += 1
 
-        # Devolver el diccionario con los totales calculados.
-        return conteo
+        return conteo  # Devuelve el total por gravedad.
+
+    # Método que cierra un incidente y utiliza un notificador.
+    def cerrar_incidente(self, incidente, notificador):
+
+        # Cambia el estado del incidente a Cerrado.
+        incidente.cerrar()
+
+        # Envía una notificación utilizando el servicio recibido.
+        notificador.enviar(incidente)
