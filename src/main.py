@@ -1,49 +1,49 @@
 # Importa las clases necesarias para gestionar los incidentes.
-from modelos.usuario import Usuario
-from modelos.incidente import Incidente
-from servicios.notificador import Notificador
-
-
-# Clase GestorIncidentes: coordina las operaciones sobre los incidentes.
-class GestorIncidentes:
-
-    # Cierra un incidente y utiliza temporalmente un notificador.
-    def cerrar_incidente(self, incidente, notificador):
-        incidente.cerrar()          # Cambia el estado del incidente a Cerrado.
-        notificador.enviar(incidente)  # Notifica el cierre del incidente.
-
+from src.modelos.usuario import Usuario
+from src.modelos.incidente import Incidente
+from src.modelos.gestor_incidentes import GestorIncidentes
+from src.servicios.notificador import Notificador
 
 # Programa principal.
 if __name__ == "__main__":
 
-    # Crear dos usuarios ficticios.
+    # Crea dos usuarios ficticios.
     usuario1 = Usuario(1, "Daniel")
     usuario2 = Usuario(2, "Laura")
 
-    # Crear tres incidentes ficticios.
+    # Crea tres incidentes ficticios.
     incidente1 = Incidente(101, "Acceso sospechoso", "Alta")
     incidente2 = Incidente(102, "Alerta de seguridad", "Media")
     incidente3 = Incidente(103, "Modificacion no autorizada", "Alta")
 
-    # Asignar responsables a los incidentes.
+    # Asigna responsables a los incidentes.
     incidente1.asignar_responsable(usuario1)
     incidente2.asignar_responsable(usuario2)
     incidente3.asignar_responsable(usuario1)
 
-    # Mostrar información de los usuarios.
+    # Muestra la información de los usuarios.
     print("=== USUARIOS ===")
     print(usuario1.resumen())
     print(usuario2.resumen())
 
-    # Mostrar información de los incidentes.
+    # Crea el gestor y registra los incidentes.
+    gestor = GestorIncidentes()
+    gestor.agregar(incidente1)
+    gestor.agregar(incidente2)
+    gestor.agregar(incidente3)
+
+    # Muestra los incidentes registrados en el gestor.
     print("\n=== INCIDENTES ===")
 
-    for incidente in [incidente1, incidente2, incidente3]:
+    for incidente in gestor.listar():
+
+        # Obtiene el nombre del responsable si existe.
         if incidente.responsable is not None:
             nombre_responsable = incidente.responsable.nombre
         else:
             nombre_responsable = "Sin asignar"
 
+        # Muestra los datos del incidente.
         print(
             f"ID: {incidente.id} | "
             f"Descripción: {incidente.descripcion} | "
@@ -52,13 +52,12 @@ if __name__ == "__main__":
             f"Responsable: {nombre_responsable}"
         )
 
-    # Crear el gestor y el notificador.
-    gestor = GestorIncidentes()
+    # Crea el servicio encargado de enviar notificaciones.
     notificador = Notificador()
 
-    # Cerrar el primer incidente y notificar la operación.
+    # Cierra el primer incidente y envía una notificación.
     print("\n=== CIERRE DEL INCIDENTE ===")
     gestor.cerrar_incidente(incidente1, notificador)
 
-    # Mostrar el estado actualizado del incidente.
+    # Muestra el estado actualizado del incidente.
     print(f"Estado final del incidente {incidente1.id}: {incidente1.estado}")
