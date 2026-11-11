@@ -60,3 +60,29 @@ class GestorIncidentes:
 
         # Envía una notificación utilizando el servicio recibido.
         notificador.enviar(incidente)
+
+    
+    # Método que devuelve los incidentes abiertos ordenados por prioridad.
+    def pendientes_priorizados(self):
+
+        # Define el orden de prioridad de las gravedades.
+        prioridad = {
+            "Critica": 0,
+            "Alta": 1,
+            "Media": 2,
+            "Baja": 3
+        }
+
+        # Crea una lista nueva únicamente con incidentes abiertos.
+        abiertos = [
+            incidente
+            for incidente in self._incidentes
+            if incidente.estado == "Abierto"
+        ]
+
+        # Ordena la lista nueva sin modificar la colección original.
+        # sorted() conserva el orden de registro cuando hay empates.
+        return sorted(
+            abiertos,
+            key=lambda incidente: prioridad[incidente.gravedad]
+        )
