@@ -134,3 +134,73 @@ No se utilizan datos de incidentes reales.
 - Programación Orientada a Objetos
 - Git
 - GitHub
+
+
+## Unidad IV - Clase 11: Abstracción y ciclo de vida del software
+
+### 1. Análisis y requisitos
+
+Se identificó la necesidad de consultar los incidentes abiertos
+y ordenarlos de acuerdo con su nivel de gravedad.
+
+El operador utiliza esta funcionalidad para identificar
+los incidentes que requieren atención prioritaria.
+
+Los requisitos funcionales y no funcionales se encuentran
+documentados en:
+
+- `docs/requisitos_clase11.md`
+
+### 2. Ciclo de vida del software
+
+Se documentaron las etapas de análisis, requisitos, diseño,
+implementación, pruebas, entrega y mantenimiento.
+
+También se identificaron riesgos y se seleccionó el modelo
+iterativo para continuar mejorando el proyecto.
+
+Documento:
+
+- `docs/ciclo_vida_clase11.md`
+
+### 3. Consulta de incidentes pendientes
+
+Se agregó el método `pendientes_priorizados()` a la clase
+`GestorIncidentes`.
+
+Esta funcionalidad:
+
+- Consulta únicamente incidentes abiertos.
+- Ordena por gravedad: Crítica, Alta, Media y Baja.
+- Conserva el orden de registro cuando existen empates.
+- Devuelve una lista nueva sin modificar la colección original.
+
+### 4. Pruebas de Clase 11
+
+Las pruebas se ejecutan desde la carpeta principal del proyecto.
+
+**Prueba de priorización:**
+
+```bash
+python -m src.modelos.pruebas_priorizacion
+```
+
+**Pruebas de validación:**
+
+```bash
+python -m src.modelos.pruebas_clase11
+```
+
+Se comprobaron seis casos: orden de prioridad, exclusión de
+incidentes cerrados, lista vacía, empate estable, conservación
+de la lista original y rechazo de gravedad inválida.
+
+### 5. Control de versiones
+
+Los cambios de la Clase 11 se trabajan en la rama:
+
+`feature/requisitos-ciclo-vida`
+
+La documentación y las modificaciones del sistema se registran
+mediante Git y se preparan para su revisión mediante un
+Pull Request en GitHub.
