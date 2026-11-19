@@ -1,0 +1,5 @@
+﻿id,descripcion,gravedad,estado
+202,Amenaza critica,Critica,Abierto
+203,Acceso sospechoso,Alta,Abierto
+205,Actividad sospechosa,Alta,Abierto
+201,Alerta media,Media,Abierto
