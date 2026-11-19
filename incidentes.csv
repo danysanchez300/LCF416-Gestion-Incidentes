@@ -1,0 +1,4 @@
+﻿id,descripcion,gravedad,estado
+101,Acceso sospechoso,Alta,Abierto
+102,Alerta de seguridad,Media,Abierto
+103,Modificacion no autorizada,Alta,Abierto
