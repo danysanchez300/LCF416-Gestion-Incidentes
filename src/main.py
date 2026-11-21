@@ -126,20 +126,21 @@ if __name__ == "__main__":
     # Crea un gestor independiente para esta prueba.
     gestor9 = GestorIncidentes()
 
-    # Crea cinco incidentes con diferentes prioridades.
+    # Crea seis incidentes con diferentes prioridades.
     incidente201 = Incidente(201, "Alerta media", "Media")
     incidente202 = Incidente(202, "Amenaza critica", "Critica")
     incidente203 = Incidente(203, "Acceso sospechoso", "Alta")
     incidente204 = Incidente(204, "Incidente cerrado", "Critica")
     incidente205 = Incidente(205, "Actividad sospechosa", "Alta")
+    incidente206 = Incidente(206, "Software desactualizado", "Baja")
 
     # Cierra el incidente 204 para comprobar que sea excluido.
     incidente204.cerrar()
 
-    # Registra los cinco incidentes.
+    # Registra los seis incidentes.
     for incidente in [
         incidente201, incidente202, incidente203,
-        incidente204, incidente205
+        incidente204, incidente205, incidente206,
     ]:
         gestor9.agregar(incidente)
 
@@ -158,7 +159,7 @@ if __name__ == "__main__":
         )
 
     # Comprueba el orden de prioridades y la estabilidad de empates.
-    assert [incidente.id for incidente in pendientes] == [202, 203, 205, 201]
+    assert [incidente.id for incidente in pendientes] == [202, 203, 205, 201, 206]
 
     # Comprueba que no aparezcan incidentes cerrados.
     assert all(incidente.estado == "Abierto" for incidente in pendientes)
